@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-const Register = ({ setIsAuthenticated }) => {
+const Register = ({ onRegister }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
@@ -15,15 +15,20 @@ const Register = ({ setIsAuthenticated }) => {
     role: '',
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       alert('Passwords do not match!');
       return;
     }
-    // Add your registration logic here
-    setIsAuthenticated(true);
-    navigate('/dashboard');
+    
+    try {
+      await onRegister();
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Registration failed:', error);
+      alert('Registration failed. Please try again.');
+    }
   };
 
   return (
@@ -99,16 +104,17 @@ const Register = ({ setIsAuthenticated }) => {
           </select>
           <button
             type="submit"
-            className="bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition"
+            className="bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors"
           >
             Register
           </button>
+          <p className="text-center text-gray-600">
+            Already have an account?{' '}
+            <Link to="/login" className="text-green-500 hover:text-green-600">
+              Login here
+            </Link>
+          </p>
         </form>
-        <div className="mt-4 text-center">
-          <Link to="/login" className="text-green-500 hover:underline">
-            Already have an account? Login
-          </Link>
-        </div>
       </div>
     </div>
   );

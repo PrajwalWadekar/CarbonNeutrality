@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
@@ -7,10 +7,10 @@ import Visualization from './components/Visualise/Visualise.jsx';
 import Suggestions from './components/Suggestions/Suggestion.jsx';
 import MyProfile from './components/UserProfile/MyProfile';
 import AccountSettings from './components/UserProfile/AccountSettings';
-import ChartOne from './components/Visualise/ChartOne'; // Import ChartOne component
-import ChartTwo from './components/Visualise/ChartTwo'; // Import ChartTwo component
-import ChartThree from './components/Visualise/ChartThree'; // Import ChartThree component
-import ExportOptions from './components/Export/ExportOptions'; // Correct path for ExportOptions component
+import ChartOne from './components/Visualise/ChartOne';
+import ChartTwo from './components/Visualise/ChartTwo';
+import ChartThree from './components/Visualise/ChartThree';
+import ExportOptions from './components/Export/ExportOptions';
 import CarbonSinks from './components/CarbonSinks/CarbonSinks';
 import LandingPage from './components/Landing/LandingPage';
 import Login from './components/Landing/Login';
@@ -39,17 +39,71 @@ const App = () => {
     { parameter: "Safety Improvement", value: "Conduct bi-weekly safety drills" },
   ];
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // Use localStorage to persist authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    const savedAuth = localStorage.getItem('isAuthenticated');
+    return savedAuth ? JSON.parse(savedAuth) : false;
+  });
+
+  // Update localStorage whenever authentication state changes
+  useEffect(() => {
+    localStorage.setItem('isAuthenticated', JSON.stringify(isAuthenticated));
+  }, [isAuthenticated]);
+
+  const handleLogin = async (username, password) => {
+    // Here you would typically make an API call to authenticate
+    // For now, we'll just simulate a successful login
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        setIsAuthenticated(true);
+        resolve();
+      }, 500);
+    });
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem('isAuthenticated');
+  };
+
+  const handleRegister = async (userData) => {
+    // Here you would typically make an API call to register
+    // For now, we'll just simulate a successful registration
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        setIsAuthenticated(true);
+        resolve();
+      }, 500);
+    });
+  };
 
   return (
     <Router>
       <Routes>
-        {/* Public routes */}
+        {/* Landing and Auth Routes */}
         <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
-        <Route path="/register" element={<Register setIsAuthenticated={setIsAuthenticated} />} />
+        <Route 
+          path="/login" 
+          element={
+            isAuthenticated ? (
+              <Navigate to="/dashboard" replace />
+            ) : (
+              <Login onLogin={handleLogin} />
+            )
+          } 
+        />
+        <Route 
+          path="/register" 
+          element={
+            isAuthenticated ? (
+              <Navigate to="/dashboard" replace />
+            ) : (
+              <Register onRegister={handleRegister} />
+            )
+          } 
+        />
 
-        {/* Protected dashboard routes */}
+        {/* Protected Dashboard Routes */}
         <Route
           path="/dashboard/*"
           element={
@@ -59,15 +113,7 @@ const App = () => {
                 <div className="flex flex-col flex-grow bg-white">
                   <Header 
                     ownerData={ownerData}
-                    onProfileClick={() => { window.location.href = '/dashboard/myProfile' }} 
-                    onAccountSettingsClick={() => { window.location.href = '/dashboard/accountSettings' }} 
-                    onSectionChange={(section) => { 
-                      if (section === 'dashboard') window.location.href = '/dashboard/visualise';
-                      else if (section === 'emissionData') window.location.href = '/dashboard/dataInput';
-                      else if (section === 'carbonSinks') window.location.href = '/dashboard/carbonSinks';
-                      else if (section === 'pathways') window.location.href = '/dashboard/suggestions';
-                      else if (section === 'reports') window.location.href = '/dashboard/reports';
-                    }}
+                    onLogout={handleLogout}
                   />
                   <main className="p-8 bg-white dark:bg-white flex-grow overflow-auto">
                     <Routes>
@@ -90,19 +136,21 @@ const App = () => {
                           />
                         </div>
                       } />
-                      {/* Add more routes as needed */}
                     </Routes>
                   </main>
                 </div>
               </div>
             ) : (
-              <Navigate to="/login" />
+              <Navigate to="/login" replace />
             )
           }
         />
+
+        {/* Catch-all route */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;

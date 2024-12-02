@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Handle hash links for smooth scrolling
     if (location.hash) {
       const element = document.querySelector(location.hash);
       if (element) {
@@ -21,8 +21,12 @@ const LandingPage = () => {
     }
   };
 
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
   return (
-   <div>
+    <div>
       {/* Header */}
       <header className="bg-white text-black py-6 px-8 shadow-md fixed w-full z-50">
         <div className="container mx-auto flex justify-between items-center">
@@ -54,20 +58,20 @@ const LandingPage = () => {
                 </button>
               </li>
               <li>
-                <Link
-                  to="/login"
+                <button
+                  onClick={() => handleNavigation('/login')}
                   className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
                 >
                   Login
-                </Link>
+                </button>
               </li>
               <li>
-                <Link
-                  to="/register"
+                <button
+                  onClick={() => handleNavigation('/register')}
                   className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
                 >
                   Register
-                </Link>
+                </button>
               </li>
             </ul>
           </nav>
@@ -85,12 +89,12 @@ const LandingPage = () => {
             <p className="text-lg text-gray-300 mb-6">
               Quantify, analyze, and pave the way to a sustainable future with our innovative platform.
             </p>
-            <Link
-              to="/register"
+            <button
+              onClick={() => handleNavigation('/login')}
               className="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition"
             >
               Get Started
-            </Link>
+            </button>
           </div>
         </section>
 
@@ -369,24 +373,24 @@ const LandingPage = () => {
                 <p className="text-gray-400">Empowering sustainable mining practices</p>
               </div>
               <div className="flex space-x-4">
-                <Link
-                  to="/privacy-policy"
+                <button
+                  onClick={() => handleNavigation('/privacy-policy')}
                   className="hover:text-green-400"
                 >
                   Privacy Policy
-                </Link>
-                <Link
-                  to="/terms-of-service"
+                </button>
+                <button
+                  onClick={() => handleNavigation('/terms-of-service')}
                   className="hover:text-green-400"
                 >
                   Terms of Service
-                </Link>
-                <Link
-                  to="/contact"
+                </button>
+                <button
+                  onClick={() => handleNavigation('/contact')}
                   className="hover:text-green-400"
                 >
                   Contact
-                </Link>
+                </button>
               </div>
             </div>
             <div className="mt-8 text-center text-gray-400">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import CarbonCredit from './CarbonCredit';
 
 function Header({ onLogout, ownerData }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -31,6 +32,10 @@ function Header({ onLogout, ownerData }) {
         <Link to="/dashboard" className="text-xl font-medium hover:text-green-500 transition-colors duration-200">
           CarbonTrack Dashboard
         </Link>
+      </div>
+
+      <div className="flex items-center mt-4 sm:mt-0">
+        <CarbonCredit />
       </div>
       
       <nav className="flex items-center gap-2 mt-4 sm:mt-0">

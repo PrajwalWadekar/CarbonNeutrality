@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaDatabase, FaChartBar, FaLightbulb, FaCog, FaBars, FaTree } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom';
+import CarbonCredit from './CarbonCredit';
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
@@ -42,21 +43,29 @@ function Sidebar() {
         </h1>
       </div>
 
-      <div className="flex flex-col gap-y-2">
-        {menuItems.map((item, index) => (
-          <Link
-            key={index}
-            to={item.path}
-            className={`flex items-center gap-x-4 cursor-pointer p-3 hover:bg-gray-900 rounded-lg transition-all duration-200
-              ${isActiveLink(item.path) ? 'bg-gray-900 border-l-4 border-green-500' : 'text-gray-300'}`}
-          >
-            <item.icon className={`text-xl ${isActiveLink(item.path) ? 'text-green-500' : 'text-gray-400'}`} />
-            <span className={`${!isOpen && 'hidden'} origin-left duration-200 text-sm font-medium
-              ${isActiveLink(item.path) ? 'text-green-500' : 'text-gray-300'}`}>
-              {item.title}
-            </span>
-          </Link>
-        ))}
+      <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
+        {/* Carbon Credit Component */}
+        <div className="mb-6 px-4">
+          <CarbonCredit />
+        </div>
+        
+        {/* Other Sidebar Content */}
+        <div className="flex flex-col gap-y-2">
+          {menuItems.map((item, index) => (
+            <Link
+              key={index}
+              to={item.path}
+              className={`flex items-center gap-x-4 cursor-pointer p-3 hover:bg-gray-900 rounded-lg transition-all duration-200
+                ${isActiveLink(item.path) ? 'bg-gray-900 border-l-4 border-green-500' : 'text-gray-300'}`}
+            >
+              <item.icon className={`text-xl ${isActiveLink(item.path) ? 'text-green-500' : 'text-gray-400'}`} />
+              <span className={`${!isOpen && 'hidden'} origin-left duration-200 text-sm font-medium
+                ${isActiveLink(item.path) ? 'text-green-500' : 'text-gray-300'}`}>
+                {item.title}
+              </span>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );

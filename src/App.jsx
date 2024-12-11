@@ -15,6 +15,7 @@ import CarbonSinks from './components/CarbonSinks/CarbonSinks';
 import LandingPage from './components/Landing/LandingPage';
 import Login from './components/Landing/Login';
 import Register from './components/Landing/Register';
+import CarbonSpeedometerPage from './components/CarbonSpeedometerPage';
 
 const App = () => {
   const [ownerData, setOwnerData] = useState({
@@ -32,7 +33,7 @@ const App = () => {
     { parameter: "Safety Incidents", value: 2 },
     { parameter: "Operational Hours", value: 24 },
   ];
-  
+
   const suggestions = [
     { parameter: "Emission Reduction", value: "Implement scrubbers to reduce emissions by 15%" },
     { parameter: "Water Usage Optimization", value: "Recycle 50% of water used in operations" },
@@ -124,6 +125,7 @@ const App = () => {
                           />
                         </div>
                       } />
+                      <Route path="/carbon-speedometer" element={<CarbonSpeedometerPage />} />
                     </Routes>
                   </main>
                 </div>

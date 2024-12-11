@@ -15,7 +15,7 @@
     "@mui/material": "^6.1.8",
     "apexcharts": "^3.54.1",
     "file-saver": "^2.0.5",
-    "framer-motion": "^11.12.0",
+    "framer-motion": "^11.13.5",
     "jspdf": "^2.5.2",
     "jsvectormap": "^1.6.0",
     "leaflet": "^1.7.1",

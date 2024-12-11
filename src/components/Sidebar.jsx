@@ -58,33 +58,7 @@ function Sidebar() {
           </Link>
         ))}
       </div>
-      
-      <div className="bg-gray-900 w-64 p-6 shadow-md">
-      <h2 className="text-white text-lg font-semibold mb-6">Dashboard</h2>
-      <div
-        onClick={onShowSpeedometer}
-        className="bg-gray-800 rounded-lg p-4 cursor-pointer hover:bg-gray-700 transition duration-200 border border-gray-700 shadow-md hover:shadow-lg"
-      >
-        <div className="flex items-center gap-3">
-          <div className="flex flex-col">
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-300">Carbon Credits</span>
-              <div
-                className={`w-2 h-2 rounded-full ${
-                  creditData.trend === 'up' ? 'bg-green-500' : 'bg-red-500'
-                }`}
-              ></div>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold text-green-400">{creditData.carbonCredit}</span>
-            </div>
-            <span className="text-xs text-gray-500">{creditData.lastUpdate}</span>
-          </div>
-        </div>
-      </div>
     </div>
-    </div>
-
   );
 }
 

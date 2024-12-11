@@ -4,23 +4,23 @@ import { motion } from 'framer-motion';
 import { FiTrendingUp, FiAward, FiInfo } from 'react-icons/fi';
 
 const CarbonSpeedometerPage = () => {
-  const [carbonCredits, setCarbonCredits] = useState(75);
+  const [carbonCredits, setCarbonCredits] = useState(821);
   const [showTooltip, setShowTooltip] = useState(null);
   
   const creditData = {
     trend: 'up',
     lastUpdate: '2 hrs ago',
-    monthlyChange: '+2.5%',
-    yearlyAverage: 72,
-    totalSaved: '12.5',
-    nextMilestone: '100'
+    monthlyChange: '+5.7%',
+    yearlyAverage: 750,
+    totalSaved: '821',
+    nextMilestone: '900'
   };
 
   const tooltips = {
-    monthlyChange: "Change in carbon credits over the last month",
-    yearlyAverage: "Average carbon credits maintained over the past year",
-    totalSaved: "Total carbon emissions saved in tons",
-    nextMilestone: "Next achievement milestone to unlock"
+    monthlyChange: "Change in carbon credits from coal mine operations over the last month",
+    yearlyAverage: "Average carbon credits from coal mine efficiency over the past year",
+    totalSaved: "Total carbon emissions reduced from coal mining operations in tons",
+    nextMilestone: "Next achievement milestone for coal mine carbon reduction"
   };
 
   return (
@@ -35,14 +35,14 @@ const CarbonSpeedometerPage = () => {
         >
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-800 mb-2">Carbon Credits</h1>
+              <h1 className="text-3xl font-bold text-gray-800 mb-2">Coal Mine Carbon Credits</h1>
               <p className="text-gray-400">Last updated {creditData.lastUpdate}</p>
             </div>
             <motion.div
               whileHover={{ scale: 1.05 }}
               className="bg-green-100 p-4 rounded-lg"
             >
-              <p className="text-green-800 font-medium">Total Carbon Saved</p>
+              <p className="text-green-800 font-medium">Total Carbon Reduced</p>
               <p className="text-2xl font-bold text-green-600">{creditData.totalSaved} tons</p>
             </motion.div>
           </div>
@@ -64,9 +64,9 @@ const CarbonSpeedometerPage = () => {
             >
               <ReactSpeedometer
                 value={carbonCredits}
-                minValue={0}
-                maxValue={100}
-                needleColor="#22c55e"
+                minValue={300}
+                maxValue={900}
+                needleColor="#2563eb"
                 needleTransitionDuration={4000}
                 needleTransition="easeElastic"
                 currentValueText="${value} Credits"
@@ -77,21 +77,23 @@ const CarbonSpeedometerPage = () => {
                   { text: "Good", position: "INSIDE", color: "#fff" },
                   { text: "Excellent", position: "INSIDE", color: "#fff" }
                 ]}
-                ringWidth={30}
+                ringWidth={40}
                 width={500}
                 height={300}
                 segments={5}
                 segmentColors={["#ef4444", "#f97316", "#eab308", "#22c55e", "#15803d"]}
                 textColor="#fff"
+                valueTextFontSize="32px"
+                maxSegmentLabels={5}
+                customSegmentStops={[300, 500, 600, 700, 800, 900]}
               />
             </motion.div>
             
             {/* Performance Metrics */}
-            <div className="grid grid-cols-3 gap-4 mt-8">
+            <div className="grid grid-cols-2 gap-4 mt-8">
               {[
-                { title: "monthly Change", value: creditData.monthlyChange, color: "green", icon: <FiTrendingUp />, tooltip: tooltips.monthlyChange },
-                { title: "yearly Average", value: creditData.yearlyAverage, color: "blue", icon: <FiTrendingUp />, tooltip: tooltips.weeklyAverage },
-                { title: "Monthly Target", value: creditData.monthlyTarget, color: "purple", icon: <FiAward />, tooltip: tooltips.monthlyTarget }
+                { title: "Monthly Change", value: creditData.monthlyChange, color: "green", icon: <FiTrendingUp />, tooltip: tooltips.monthlyChange },
+                { title: "Yearly Average", value: creditData.yearlyAverage, color: "blue", icon: <FiTrendingUp />, tooltip: tooltips.yearlyAverage }
               ].map((metric, index) => (
                 <motion.div
                   key={metric.title}
@@ -133,26 +135,26 @@ const CarbonSpeedometerPage = () => {
             >
               <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
                 <FiAward className="text-yellow-500" />
-                Performance Status
+                Mine Performance Status
               </h2>
               <div className="space-y-6">
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <p className="text-gray-400">Current Level</p>
                     <p className={`text-2xl font-bold ${
-                      carbonCredits >= 75 ? 'text-green-500' : 
-                      carbonCredits >= 50 ? 'text-yellow-500' : 
+                      carbonCredits >= 800 ? 'text-green-500' : 
+                      carbonCredits >= 600 ? 'text-yellow-500' : 
                       'text-red-500'
                     }`}>
-                      {carbonCredits >= 75 ? 'Excellent' : 
-                       carbonCredits >= 50 ? 'Good' : 
+                      {carbonCredits >= 800 ? 'Excellent' : 
+                       carbonCredits >= 600 ? 'Good' : 
                        'Needs Improvement'}
                     </p>
                   </div>
                   <div className="w-full bg-gray-700 rounded-full h-2">
                     <div 
                       className="bg-green-500 h-2 rounded-full transition-all duration-500"
-                      style={{ width: `${carbonCredits}%` }}
+                      style={{ width: `${(carbonCredits / 900) * 100}%` }}
                     />
                   </div>
                 </div>
@@ -175,22 +177,22 @@ const CarbonSpeedometerPage = () => {
               transition={{ duration: 0.5, delay: 0.6 }}
               className="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:shadow-xl transition-shadow duration-300"
             >
-              <h2 className="text-xl font-semibold text-white mb-4">Quick Tips</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">Mining Optimization Tips</h2>
               <ul className="space-y-4">
                 {[
                   {
-                    title: "Optimize Energy",
-                    description: "Switch to energy-efficient appliances",
+                    title: "Methane Capture",
+                    description: "Implement methane capture systems",
                     color: "green"
                   },
                   {
-                    title: "Regular Monitoring",
-                    description: "Track your monthly carbon footprint",
+                    title: "Equipment Efficiency",
+                    description: "Use energy-efficient mining equipment",
                     color: "blue"
                   },
                   {
-                    title: "Set Goals",
-                    description: "Create monthly reduction targets",
+                    title: "Ventilation Control",
+                    description: "Optimize mine ventilation systems",
                     color: "purple"
                   }
                 ].map((tip, index) => (

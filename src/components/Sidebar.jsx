@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FaDatabase, FaChartBar, FaLightbulb, FaCog, FaBars, FaTree } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom';
-import CarbonCredit from './CarbonCredit';
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
@@ -43,31 +42,49 @@ function Sidebar() {
         </h1>
       </div>
 
-      <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
-        {/* Carbon Credit Component */}
-        <div className="mb-6 px-4">
-          <CarbonCredit />
-        </div>
-        
-        {/* Other Sidebar Content */}
-        <div className="flex flex-col gap-y-2">
-          {menuItems.map((item, index) => (
-            <Link
-              key={index}
-              to={item.path}
-              className={`flex items-center gap-x-4 cursor-pointer p-3 hover:bg-gray-900 rounded-lg transition-all duration-200
-                ${isActiveLink(item.path) ? 'bg-gray-900 border-l-4 border-green-500' : 'text-gray-300'}`}
-            >
-              <item.icon className={`text-xl ${isActiveLink(item.path) ? 'text-green-500' : 'text-gray-400'}`} />
-              <span className={`${!isOpen && 'hidden'} origin-left duration-200 text-sm font-medium
-                ${isActiveLink(item.path) ? 'text-green-500' : 'text-gray-300'}`}>
-                {item.title}
-              </span>
-            </Link>
-          ))}
+      <div className="flex flex-col gap-y-2">
+        {menuItems.map((item, index) => (
+          <Link
+            key={index}
+            to={item.path}
+            className={`flex items-center gap-x-4 cursor-pointer p-3 hover:bg-gray-900 rounded-lg transition-all duration-200
+              ${isActiveLink(item.path) ? 'bg-gray-900 border-l-4 border-green-500' : 'text-gray-300'}`}
+          >
+            <item.icon className={`text-xl ${isActiveLink(item.path) ? 'text-green-500' : 'text-gray-400'}`} />
+            <span className={`${!isOpen && 'hidden'} origin-left duration-200 text-sm font-medium
+              ${isActiveLink(item.path) ? 'text-green-500' : 'text-gray-300'}`}>
+              {item.title}
+            </span>
+          </Link>
+        ))}
+      </div>
+      
+      <div className="bg-gray-900 w-64 p-6 shadow-md">
+      <h2 className="text-white text-lg font-semibold mb-6">Dashboard</h2>
+      <div
+        onClick={onShowSpeedometer}
+        className="bg-gray-800 rounded-lg p-4 cursor-pointer hover:bg-gray-700 transition duration-200 border border-gray-700 shadow-md hover:shadow-lg"
+      >
+        <div className="flex items-center gap-3">
+          <div className="flex flex-col">
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-gray-300">Carbon Credits</span>
+              <div
+                className={`w-2 h-2 rounded-full ${
+                  creditData.trend === 'up' ? 'bg-green-500' : 'bg-red-500'
+                }`}
+              ></div>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl font-bold text-green-400">{creditData.carbonCredit}</span>
+            </div>
+            <span className="text-xs text-gray-500">{creditData.lastUpdate}</span>
+          </div>
         </div>
       </div>
     </div>
+    </div>
+
   );
 }
 

@@ -1,22 +1,6 @@
 import React from 'react';
 
-const ImpactMetrics = ({ suggestion, savedData, onUpdate }) => {
-  const metrics = {
-    emissionReduction: savedData?.impact?.emissionReduction || 0,
-    costSaving: savedData?.impact?.costSaving || 0,
-    resourceSaved: savedData?.impact?.resourceSaved || 0
-  };
-
-  const handleMetricChange = (metric, value) => {
-    console.log('Metric change:', metric, value);
-    onUpdate({
-      impact: {
-        ...metrics,
-        [metric]: parseFloat(value)
-      }
-    });
-  };
-
+const ImpactMetrics = ({ suggestion }) => {
   return (
     <div className="space-y-4">
       <h3 className="text-lg font-semibold text-gray-900">Impact Metrics</h3>
@@ -25,46 +9,51 @@ const ImpactMetrics = ({ suggestion, savedData, onUpdate }) => {
         {/* CO2 Emissions Reduction */}
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            CO₂ Emissions Reduction (kg)
+            CO₂ Emissions Reduction
           </label>
-          <input
-            type="number"
-            value={metrics.emissionReduction}
-            onChange={(e) => handleMetricChange('emissionReduction', e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
-            placeholder="0"
-            min="0"
-          />
+          <div className="mt-1 p-2 block w-full rounded-md border border-gray-300 bg-gray-50">
+            <span className="text-gray-900">{suggestion?.impactMetrics?.carbonReduced || 'N/A'}</span>
+          </div>
         </div>
 
-        {/* Cost Savings */}
+        {/* Methane Capture Rate */}
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Cost Savings (₹)
+            Methane Capture Rate
           </label>
-          <input
-            type="number"
-            value={metrics.costSaving}
-            onChange={(e) => handleMetricChange('costSaving', e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
-            placeholder="0"
-            min="0"
-          />
+          <div className="mt-1 p-2 block w-full rounded-md border border-gray-300 bg-gray-50">
+            <span className="text-gray-900">{suggestion?.impactMetrics?.methaneCaptureRate || 'N/A'}</span>
+          </div>
         </div>
 
-        {/* Resource Conservation */}
+        {/* Energy Efficiency Improvement */}
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Resources Saved (units)
+            Energy Efficiency Improvement
           </label>
-          <input
-            type="number"
-            value={metrics.resourceSaved}
-            onChange={(e) => handleMetricChange('resourceSaved', e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm"
-            placeholder="0"
-            min="0"
-          />
+          <div className="mt-1 p-2 block w-full rounded-md border border-gray-300 bg-gray-50">
+            <span className="text-gray-900">{suggestion?.impactMetrics?.energyEfficiency || 'N/A'}</span>
+          </div>
+        </div>
+
+        {/* Carbon Credits Generated */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Carbon Credits Generated
+          </label>
+          <div className="mt-1 p-2 block w-full rounded-md border border-gray-300 bg-gray-50">
+            <span className="text-gray-900">{suggestion?.impactMetrics?.carbonCreditsGenerated || 'N/A'}</span>
+          </div>
+        </div>
+
+        {/* Implementation Timeline */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Implementation Timeline
+          </label>
+          <div className="mt-1 p-2 block w-full rounded-md border border-gray-300 bg-gray-50">
+            <span className="text-gray-900">{suggestion?.impactMetrics?.implementationTime || 'N/A'}</span>
+          </div>
         </div>
       </div>
     </div>

@@ -64,11 +64,7 @@ const ProgressModal = ({ suggestion, onClose }) => {
               onUpdate={handleUpdate}
             />
 
-            <ImpactMetrics
-              suggestion={suggestion}
-              savedData={localChanges}
-              onUpdate={handleUpdate}
-            />
+            <ImpactMetrics suggestion={suggestion} />
           </div>
 
           {/* Footer with Save Button */}

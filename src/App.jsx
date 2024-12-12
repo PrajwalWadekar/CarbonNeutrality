@@ -19,12 +19,12 @@ import CarbonSpeedometerPage from './components/CarbonSpeedometerPage';
 
 const App = () => {
   const [ownerData, setOwnerData] = useState({
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phone: "123-456-7890",
-    address: "123 Coal Mine Road, Mining Town",
-    coalMineName: "John's Coal Mine",
-    about: "Riverstone Coal Mine is a leading coal mining operation located in India, established in 1985. With a focus on safety, sustainability, and innovation, we extract high-quality coal using advanced mining techniques. Our commitment to reducing environmental impact and supporting local communities is at the core of our operations through continuous investment in modern technologies."
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    coalMineName: "",
+    about: ""
   });
 
   const inputData = [
@@ -48,11 +48,27 @@ const App = () => {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
+    setOwnerData({
+      name: "",
+      email: "",
+      phone: "",
+      address: "",
+      coalMineName: "",
+      about: ""
+    });
   };
 
-  const handleRegister = async () => {
+  const handleRegister = async (formData) => {
     return new Promise((resolve) => {
       setIsAuthenticated(true);
+      setOwnerData({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.contactNumber,
+        address: formData.address,
+        coalMineName: formData.coalMineName || "Coal Mine",
+        about: "A coal mining operation focused on sustainable practices and environmental responsibility."
+      });
       resolve();
     });
   };

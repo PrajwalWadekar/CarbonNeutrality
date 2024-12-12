@@ -38,13 +38,7 @@ const CarbonSpeedometerPage = () => {
               <h1 className="text-3xl font-bold text-gray-800 mb-2">Coal Mine Carbon Credits</h1>
               <p className="text-gray-400">Last updated {creditData.lastUpdate}</p>
             </div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="bg-green-100 p-4 rounded-lg"
-            >
-              <p className="text-green-800 font-medium">Total Carbon Reduced</p>
-              <p className="text-2xl font-bold text-green-600">{creditData.totalSaved} tons</p>
-            </motion.div>
+            
           </div>
         </motion.div>
 
@@ -71,11 +65,11 @@ const CarbonSpeedometerPage = () => {
                 needleTransition="easeElastic"
                 currentValueText="${value} Credits"
                 customSegmentLabels={[
-                  { text: "Critical", position: "INSIDE", color: "#fff" },
-                  { text: "Low", position: "INSIDE", color: "#fff" },
-                  { text: "Average", position: "INSIDE", color: "#fff" },
-                  { text: "Good", position: "INSIDE", color: "#fff" },
-                  { text: "Excellent", position: "INSIDE", color: "#fff" }
+                  { text: "300", position: "INSIDE", color: "#fff" },
+                  { text: "450", position: "INSIDE", color: "#fff" },
+                  { text: "600", position: "INSIDE", color: "#fff" },
+                  { text: "750", position: "INSIDE", color: "#fff" },
+                  { text: "900", position: "INSIDE", color: "#fff" }
                 ]}
                 ringWidth={40}
                 width={500}
@@ -85,7 +79,8 @@ const CarbonSpeedometerPage = () => {
                 textColor="#fff"
                 valueTextFontSize="32px"
                 maxSegmentLabels={5}
-                customSegmentStops={[300, 500, 600, 700, 800, 900]}
+                customSegmentStops={[300, 450, 600, 750, 900]}
+                forceRender={true}
               />
             </motion.div>
             

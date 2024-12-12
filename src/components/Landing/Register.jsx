@@ -23,8 +23,8 @@ const Register = ({ onRegister }) => {
     }
     
     try {
-      // Call the onRegister function passed from parent
-      await onRegister();
+      // Call the onRegister function passed from parent with form data
+      await onRegister(formData);
       
       // After successful registration and authentication, navigate to dashboard
       navigate('/dashboard', { replace: true });

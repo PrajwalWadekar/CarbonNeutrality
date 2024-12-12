@@ -19,164 +19,142 @@ const PersonalizedSuggestions = ({ filters }) => {
   const suggestions = [
     {
       id: 'p1',
-      title: "Smart Metering System",
-      description: "Install smart meters to monitor and optimize energy consumption in your facility.",
+      title: "Methane Drainage System",
+      description: "Implementation of pre-mine methane drainage system to capture and utilize methane for power generation.",
       icon: "/icons/smart-meter.svg",
       category: "Technology",
       relevance: "High",
       roi: "Medium",
       complexity: "Medium",
-      estimatedSavings: "₹50,000/month",
-      siteInspection: {
-        lastInspection: "2024-01-15",
-        nextInspection: "2024-02-15",
-        status: "Scheduled",
-        findings: "Initial assessment complete"
-      },
+      status: "in-progress",
       progress: {
-        percentage: 35,
+        percentage: 65,
         status: "in-progress",
         milestones: [
-          { title: "Site Survey", completed: true },
-          { title: "Equipment Order", completed: true },
-          { title: "Installation", completed: false },
-          { title: "Testing", completed: false }
+          { title: "Site Assessment", completed: true },
+          { title: "Equipment Installation", completed: true },
+          { title: "System Testing", completed: false },
+          { title: "Full Operation", completed: false }
         ]
       },
       impactMetrics: {
-        energySaved: "2500 kWh/month",
-        carbonReduced: "1.2 tons CO2/month",
-        waterConserved: "N/A",
-        implementationCost: "₹300,000"
+        carbonReduced: "2,500 tons CO2/year",
+        methaneCaptureRate: "40% capture efficiency",
+        energyEfficiency: "15% improvement in ventilation",
+        carbonCreditsGenerated: "2,000 credits/year",
+        implementationTime: "6-8 months"
       }
     },
     {
       id: 'p2',
-      title: "Process Optimization",
-      description: "Optimize mining processes using data analytics and AI for better resource utilization.",
+      title: "Underground Lighting Upgrade",
+      description: "Replace traditional lighting with energy-efficient LED systems in underground operations.",
       icon: "/icons/process-optimization.svg",
       category: "Operations",
-      relevance: "High",
-      roi: "High",
-      complexity: "High",
-      estimatedSavings: "₹200,000/month",
-      siteInspection: {
-        lastInspection: "2024-01-10",
-        nextInspection: "2024-02-10",
-        status: "In Review",
-        findings: "Process bottlenecks identified"
-      },
-      progress: {
-        percentage: 60,
-        status: "in-progress",
-        milestones: [
-          { title: "Data Collection", completed: true },
-          { title: "Analysis", completed: true },
-          { title: "Implementation", completed: false },
-          { title: "Monitoring", completed: false }
-        ]
-      },
-      impactMetrics: {
-        energySaved: "5000 kWh/month",
-        carbonReduced: "2.4 tons CO2/month",
-        waterConserved: "1000 L/month",
-        implementationCost: "₹1,200,000"
-      }
-    },
-    {
-      id: 'p3',
-      title: "Employee Training Program",
-      description: "Implement comprehensive sustainability training for all employees.",
-      icon: "/icons/training.svg",
-      category: "Training",
       relevance: "Medium",
-      roi: "Medium",
-      complexity: "Low",
-      estimatedSavings: "₹30,000/month",
-      siteInspection: {
-        lastInspection: "2024-01-12",
-        nextInspection: "2024-02-12",
-        status: "Scheduled",
-        findings: "Training materials prepared"
-      },
-      progress: {
-        percentage: 20,
-        status: "in-progress",
-        milestones: [
-          { title: "Training Plan", completed: true },
-          { title: "Training Delivery", completed: false },
-          { title: "Evaluation", completed: false }
-        ]
-      },
-      impactMetrics: {
-        energySaved: "N/A",
-        carbonReduced: "N/A",
-        waterConserved: "N/A",
-        implementationCost: "₹50,000"
-      }
-    },
-    {
-      id: 'p4',
-      title: "Waste Heat Recovery",
-      description: "Install waste heat recovery systems in processing units.",
-      icon: "/icons/waste-heat-recovery.svg",
-      category: "Energy",
-      relevance: "High",
       roi: "High",
-      complexity: "High",
-      estimatedSavings: "₹150,000/month",
-      siteInspection: {
-        lastInspection: "2024-01-18",
-        nextInspection: "2024-02-18",
-        status: "In Review",
-        findings: "System design complete"
-      },
+      complexity: "Low",
+      status: "pending",
       progress: {
-        percentage: 40,
+        percentage: 30,
         status: "in-progress",
         milestones: [
-          { title: "System Design", completed: true },
+          { title: "Lighting Audit", completed: true },
+          { title: "Procurement", completed: false },
           { title: "Installation", completed: false },
           { title: "Testing", completed: false }
         ]
       },
       impactMetrics: {
-        energySaved: "3000 kWh/month",
-        carbonReduced: "1.8 tons CO2/month",
-        waterConserved: "N/A",
-        implementationCost: "₹600,000"
+        carbonReduced: "800 tons CO2/year",
+        methaneCaptureRate: "Not Applicable",
+        energyEfficiency: "60% reduction in lighting energy",
+        carbonCreditsGenerated: "700 credits/year",
+        implementationTime: "3-4 months"
+      }
+    },
+    {
+      id: 'p3',
+      title: "Ventilation Optimization",
+      description: "Smart ventilation control system with air quality sensors.",
+      icon: "/icons/training.svg",
+      category: "Technology",
+      relevance: "High",
+      roi: "Medium",
+      complexity: "Medium",
+      status: "completed",
+      progress: {
+        percentage: 100,
+        status: "completed",
+        milestones: [
+          { title: "System Design", completed: true },
+          { title: "Sensor Installation", completed: true },
+          { title: "Software Integration", completed: true },
+          { title: "Performance Testing", completed: true }
+        ]
+      },
+      impactMetrics: {
+        carbonReduced: "1,200 tons CO2/year",
+        methaneCaptureRate: "15% improved detection",
+        energyEfficiency: "20% reduction in fan power",
+        carbonCreditsGenerated: "1,000 credits/year",
+        implementationTime: "4-5 months"
+      }
+    },
+    {
+      id: 'p4',
+      title: "Water Pumping Efficiency",
+      description: "Variable frequency drives for mine dewatering pumps.",
+      icon: "/icons/water.svg",
+      category: "Environmental",
+      relevance: "Medium",
+      roi: "Medium",
+      complexity: "Medium",
+      status: "in-progress",
+      progress: {
+        percentage: 45,
+        status: "in-progress",
+        milestones: [
+          { title: "Pump Audit", completed: true },
+          { title: "VFD Installation", completed: true },
+          { title: "Control System", completed: false },
+          { title: "Testing", completed: false }
+        ]
+      },
+      impactMetrics: {
+        carbonReduced: "600 tons CO2/year",
+        methaneCaptureRate: "Not Applicable",
+        energyEfficiency: "25% reduction in pump energy",
+        carbonCreditsGenerated: "500 credits/year",
+        implementationTime: "3-4 months"
       }
     },
     {
       id: 'p5',
-      title: "Local Sourcing Initiative",
-      description: "Develop partnerships with local suppliers to reduce transportation emissions.",
-      icon: "/icons/local-sourcing.svg",
-      category: "Supply Chain",
+      title: "Conveyor Belt Optimization",
+      description: "Smart conveyor belt system with variable speed control.",
+      icon: "/icons/heat.svg",
+      category: "Energy",
       relevance: "Medium",
-      roi: "Medium",
+      roi: "High",
       complexity: "Medium",
-      estimatedSavings: "₹80,000/month",
-      siteInspection: {
-        lastInspection: "2024-01-20",
-        nextInspection: "2024-02-20",
-        status: "Scheduled",
-        findings: "Supplier engagement initiated"
-      },
+      status: "pending",
       progress: {
-        percentage: 30,
-        status: "in-progress",
+        percentage: 15,
+        status: "pending",
         milestones: [
-          { title: "Supplier Engagement", completed: true },
-          { title: "Contract Negotiation", completed: false },
-          { title: "Implementation", completed: false }
+          { title: "System Analysis", completed: true },
+          { title: "Motor Upgrade", completed: false },
+          { title: "Control Install", completed: false },
+          { title: "Testing", completed: false }
         ]
       },
       impactMetrics: {
-        energySaved: "N/A",
-        carbonReduced: "0.6 tons CO2/month",
-        waterConserved: "N/A",
-        implementationCost: "₹100,000"
+        carbonReduced: "900 tons CO2/year",
+        methaneCaptureRate: "Not Applicable",
+        energyEfficiency: "30% energy reduction",
+        carbonCreditsGenerated: "800 credits/year",
+        implementationTime: "4-5 months"
       }
     }
   ];
@@ -193,6 +171,8 @@ const PersonalizedSuggestions = ({ filters }) => {
         return 'bg-yellow-100 text-yellow-800';
       case 'supply chain':
         return 'bg-orange-100 text-orange-800';
+      case 'environmental':
+        return 'bg-teal-100 text-teal-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
@@ -257,7 +237,7 @@ const PersonalizedSuggestions = ({ filters }) => {
           return complexityOrder[a.complexity.toLowerCase()] - complexityOrder[b.complexity.toLowerCase()];
         case 'savings':
           const getSavings = str => parseInt(str.replace(/[^0-9]/g, ''));
-          return getSavings(b.estimatedSavings) - getSavings(a.estimatedSavings);
+          return getSavings(b.impactMetrics.carbonReduced.replace(/[^0-9]/g, '')) - getSavings(a.impactMetrics.carbonReduced.replace(/[^0-9]/g, ''));
         default:
           return 0;
       }
@@ -354,7 +334,7 @@ const PersonalizedSuggestions = ({ filters }) => {
               {/* Estimated Savings */}
               <div className="mt-4 text-right">
                 <span className="text-sm font-medium text-green-600">
-                  Est. Savings: {suggestion.estimatedSavings}
+                  Est. Carbon Reduction: {suggestion.impactMetrics.carbonReduced}
                 </span>
               </div>
 
@@ -475,7 +455,7 @@ const PersonalizedSuggestions = ({ filters }) => {
           >
             <option value="relevance">Relevance</option>
             <option value="roi">ROI</option>
-            <option value="savings">Savings</option>
+            <option value="savings">Carbon Reduction</option>
             <option value="progress">Progress</option>
           </select>
         </div>

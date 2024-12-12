@@ -65,11 +65,11 @@ const CarbonSpeedometerPage = () => {
                 needleTransition="easeElastic"
                 currentValueText="${value} Credits"
                 customSegmentLabels={[
-                  { text: "300", position: "INSIDE", color: "#fff" },
-                  { text: "450", position: "INSIDE", color: "#fff" },
-                  { text: "600", position: "INSIDE", color: "#fff" },
-                  { text: "750", position: "INSIDE", color: "#fff" },
-                  { text: "900", position: "INSIDE", color: "#fff" }
+                  { text: "Critical", position: "INSIDE", color: "#fff" },
+                  { text: "Low", position: "INSIDE", color: "#fff" },
+                  { text: "Average", position: "INSIDE", color: "#fff" },
+                  { text: "Good", position: "INSIDE", color: "#fff" },
+                  { text: "Excellent", position: "INSIDE", color: "#fff" }
                 ]}
                 ringWidth={40}
                 width={500}
@@ -79,8 +79,7 @@ const CarbonSpeedometerPage = () => {
                 textColor="#fff"
                 valueTextFontSize="32px"
                 maxSegmentLabels={5}
-                customSegmentStops={[300, 450, 600, 750, 900]}
-                forceRender={true}
+                customSegmentStops={[300, 500, 600, 700, 800, 900]}
               />
             </motion.div>
             
@@ -212,3 +211,4 @@ const CarbonSpeedometerPage = () => {
 };
 
 export default CarbonSpeedometerPage;
+

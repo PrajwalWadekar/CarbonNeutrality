@@ -20,8 +20,8 @@ const options = {
       right: 10,
     },
   },
-  colors: ['#006400', '#90EE90', '#FFA500', '#228B22'], // Dark green, light green, orange, and green
-  labels: ['CO2', 'Methane', 'SO2', 'Particulate Matter'],
+  colors: ['#006400', '#FFA500', '#228B22'], // Dark green, orange, and green
+  labels: ['CO2', 'SO2', 'Particulate Matter'],
   legend: {
     show: false,
     position: 'bottom',
@@ -71,7 +71,7 @@ const options = {
 
 const ChartThree = () => {
   const [state, setState] = useState({
-    series: [45, 30, 15, 10], // Example data for emissions in percentage
+    series: [50, 30, 20], // Adjusted example data for emissions in percentage
   });
 
   return (

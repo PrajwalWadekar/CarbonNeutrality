@@ -46,6 +46,18 @@ const StatsCard = ({
 };
 
 const CarbonSinksVisualisation = ({ data }) => {
+  // Calculate carbon sequestration potential
+  const forestCarbonSequestration = data.afforestation.area * 2.5; // Approximate tons of CO2 per hectare per year
+  const treeCarbonSequestration = data.afforestation.treeCount * 0.025; // Approximate tons of CO2 per tree per year
+  const soilCarbonSequestration = data.soilCarbon.area * 1.2; // Approximate factor for soil carbon contribution
+  const methaneCarbonOffset = data.methaneCapture * 0.8; // Conversion factor for methane to carbon credits
+
+  const totalSequestration = 
+    forestCarbonSequestration + 
+    treeCarbonSequestration + 
+    soilCarbonSequestration +
+    methaneCarbonOffset;
+
   // Bar Chart - Areas by Type
   const areaChartConfig = {
     series: [{
@@ -53,7 +65,8 @@ const CarbonSinksVisualisation = ({ data }) => {
       data: [
         data.afforestation.area,
         data.soilCarbon.area,
-        data.grassland.area
+        data.grassland.area,
+        data.methaneCapture
       ]
     }],
     options: {
@@ -86,7 +99,7 @@ const CarbonSinksVisualisation = ({ data }) => {
         }
       },
       xaxis: {
-        categories: ["Afforestation", "Soil Carbon", "Grassland"],
+        categories: ["Afforestation", "Soil Carbon", "Grassland", "Methane Capture"],
         position: 'bottom',
         axisBorder: {
           show: false
@@ -133,17 +146,18 @@ const CarbonSinksVisualisation = ({ data }) => {
   // Donut Chart - Carbon Sequestration by Type
   const sequestrationChartConfig = {
     series: [
-      data.afforestation.estimatedCarbonSeq,
-      data.soilCarbon.estimatedCarbonSeq,
-      data.grassland.estimatedCarbonSeq
+      (forestCarbonSequestration / totalSequestration) * 100,
+      (treeCarbonSequestration / totalSequestration) * 100,
+      (soilCarbonSequestration / totalSequestration) * 100,
+      (methaneCarbonOffset / totalSequestration) * 100
     ],
     options: {
       chart: {
         type: 'donut',
         height: 350
       },
-      labels: ['Afforestation', 'Soil Carbon', 'Grassland'],
-      colors: ['#10B981', '#F59E0B', '#3B82F6'],
+      labels: ['Afforestation', 'Trees', 'Soil Carbon', 'Methane Capture'],
+      colors: ['#10B981', '#F59E0B', '#3B82F6', '#FFA07A'],
       plotOptions: {
         pie: {
           donut: {
@@ -194,11 +208,11 @@ const CarbonSinksVisualisation = ({ data }) => {
     series: [{
       name: 'Projected Sequestration',
       data: [
-        data.afforestation.estimatedCarbonSeq,
-        data.afforestation.estimatedCarbonSeq * 1.2,
-        data.afforestation.estimatedCarbonSeq * 1.5,
-        data.afforestation.estimatedCarbonSeq * 1.8,
-        data.afforestation.estimatedCarbonSeq * 2.1
+        totalSequestration,
+        totalSequestration * 1.2,
+        totalSequestration * 1.5,
+        totalSequestration * 1.8,
+        totalSequestration * 2.1
       ]
     }],
     options: {
@@ -292,9 +306,16 @@ const CarbonSinksVisualisation = ({ data }) => {
         />
         <StatsCard
           icon={FaTree}
-          value={`${(data.afforestation.estimatedCarbonSeq + data.soilCarbon.estimatedCarbonSeq + data.grassland.estimatedCarbonSeq).toFixed(2)} tCO2/day`}
+          value={`${totalSequestration.toFixed(2)} tCO2/day`}
           label="Total Sequestration"
           change="+2.59%"
+          isPositive={true}
+        />
+        <StatsCard
+          icon={FaTree}
+          value={`${data.methaneCapture} tCO2/day`}
+          label="Methane Capture"
+          change="+1.2%"
           isPositive={true}
         />
       </div>

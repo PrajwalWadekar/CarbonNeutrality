@@ -10,9 +10,10 @@ import {
   createTheme,
   ThemeProvider,
 } from '@mui/material';
-import { FaTree, FaLeaf, FaMountain } from 'react-icons/fa';
+import { FaTree, FaLeaf, FaMountain, FaIndustry } from 'react-icons/fa';
 import CarbonSinksInput from './CarbonSinksInput';
 import CarbonSinksVisualisation from './CarbonSinksVisualisation';
+import MethaneEntrapment from './MethaneEntrapment';
 
 const theme = createTheme({
   palette: {
@@ -45,6 +46,9 @@ const CarbonSinks = () => {
       area: 0,
       grassType: 'native',
       estimatedCarbonSeq: 0
+    },
+    methaneCapture: {
+      methaneCapture: 0
     }
   });
 
@@ -63,7 +67,8 @@ const CarbonSinks = () => {
     setData({
       afforestation: { area: 0, plantingRate: 0, treeType: 'broadleaf', estimatedCarbonSeq: 0 },
       soilCarbon: { area: 0, managementType: 'organic', estimatedCarbonSeq: 0 },
-      grassland: { area: 0, grassType: 'native', estimatedCarbonSeq: 0 }
+      grassland: { area: 0, grassType: 'native', estimatedCarbonSeq: 0 },
+      methaneCapture: { methaneCapture: 0 }
     });
   };
 
@@ -95,7 +100,33 @@ const CarbonSinks = () => {
     }));
   };
 
+  const handleMethaneCaptureUpdate = (newMethaneCapture) => {
+    setData(prev => ({
+      ...prev,
+      methaneCapture: {
+        methaneCapture: newMethaneCapture
+      }
+    }));
+  };
+
   const steps = [
+    {
+      label: 'Methane Capture',
+      icon: FaIndustry,
+      content: (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="p-6 bg-white rounded-xl shadow-lg"
+        >
+          <MethaneEntrapment
+            methaneCapture={data.methaneCapture.methaneCapture}
+            setMethaneCapture={handleMethaneCaptureUpdate}
+          />
+        </motion.div>
+      )
+    },
     {
       label: 'Afforestation',
       icon: FaTree,
@@ -230,6 +261,21 @@ const CarbonSinks = () => {
                 <div>
                   <p className="text-sm text-gray-600">Grassland</p>
                   <h4 className="text-xl font-semibold text-gray-900">{data.grassland.estimatedCarbonSeq.toFixed(2)} tCO2/year</h4>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl shadow-sm"
+            >
+              <div className="flex items-center space-x-4">
+                <div className="w-12 h-12 rounded-lg bg-blue-500 bg-opacity-20 flex items-center justify-center">
+                  <FaIndustry className="w-6 h-6 text-blue-600" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600">Methane Capture</p>
+                  <h4 className="text-xl font-semibold text-gray-900">{data.methaneCapture.methaneCapture.toFixed(2)} tCO2/year</h4>
                 </div>
               </div>
             </motion.div>

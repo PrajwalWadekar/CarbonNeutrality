@@ -1,20 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactSpeedometer from 'react-d3-speedometer';
 import { motion } from 'framer-motion';
 import { FiTrendingUp, FiAward, FiInfo } from 'react-icons/fi';
+import { calculateCarbonCredit } from '../utils/carbonCreditCalculator';
 
 const CarbonSpeedometerPage = () => {
-  const [carbonCredits, setCarbonCredits] = useState(821);
-  const [showTooltip, setShowTooltip] = useState(null);
-  
-  const creditData = {
+  const [creditData, setCreditData] = useState({
+    score: 900,
     trend: 'up',
+    percentageChange: '5.0',
+    emissions: 0,
+    sequestration: 0,
+    offsetRatio: '95.0',
     lastUpdate: '2 hrs ago',
     monthlyChange: '+5.7%',
-    yearlyAverage: 750,
-    totalSaved: '821',
-    nextMilestone: '900'
-  };
+    yearlyAverage: 750
+  });
+
+  useEffect(() => {
+    // Example data - replace with actual data from your state management system
+    const emissionsData = {
+      excavationAmount: 1000,    // tons
+      transportAmount: 500,      // km
+      operatingHours: 200,       // hours
+      fuelConsumption: 80        // efficiency percentage
+    };
+
+    const sinkData = {
+      area: 100,                 // hectares
+      plantingRate: 1000,        // trees per hectare
+      vegetationArea: 50,        // hectares
+      soilArea: 75,              // hectares
+      methaneCapture: 50         // tons
+    };
+
+    // Calculate other metrics but keep score constant
+    const result = calculateCarbonCredit(emissionsData, sinkData);
+    setCreditData({
+      ...result,
+      score: 900 // Keep score constant at 900
+    });
+  }, []); // Add dependencies when you have actual data sources
+
+  const [showTooltip, setShowTooltip] = useState(null);
 
   const tooltips = {
     monthlyChange: "Change in carbon credits from coal mine operations over the last month",
@@ -35,10 +63,17 @@ const CarbonSpeedometerPage = () => {
         >
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-800 mb-2">Coal Mine Carbon Credits</h1>
-              <p className="text-gray-400">Last updated {creditData.lastUpdate}</p>
+              <h1 className="text-3xl font-bold text-gray-800 mb-2">
+                Coal Mine Carbon Credits: <span className="text-green-600">{creditData.score}</span>
+                <span className="text-lg ml-2 text-gray-500">({creditData.offsetRatio}% offset)</span>
+              </h1>
+              <div className="flex items-center gap-4">
+                <p className="text-gray-400">Last updated {creditData.lastUpdate}</p>
+                <span className={`text-sm ${creditData.trend === 'up' ? 'text-green-500' : 'text-red-500'}`}>
+                  {creditData.percentageChange}% change
+                </span>
+              </div>
             </div>
-            
           </div>
         </motion.div>
 
@@ -57,9 +92,9 @@ const CarbonSpeedometerPage = () => {
               className="flex justify-center mb-8"
             >
               <ReactSpeedometer
-                value={carbonCredits}
-                minValue={300}
-                maxValue={900}
+                value={creditData.score}
+                minValue={0}
+                maxValue={1000}
                 needleColor="#2563eb"
                 needleTransitionDuration={4000}
                 needleTransition="easeElastic"
@@ -79,42 +114,35 @@ const CarbonSpeedometerPage = () => {
                 textColor="#fff"
                 valueTextFontSize="32px"
                 maxSegmentLabels={5}
-                customSegmentStops={[300, 500, 600, 700, 800, 900]}
+                customSegmentStops={[0, 200, 400, 600, 800, 1000]}
               />
             </motion.div>
             
             {/* Performance Metrics */}
             <div className="grid grid-cols-2 gap-4 mt-8">
-              {[
-                { title: "Monthly Change", value: creditData.monthlyChange, color: "green", icon: <FiTrendingUp />, tooltip: tooltips.monthlyChange },
-                { title: "Yearly Average", value: creditData.yearlyAverage, color: "blue", icon: <FiTrendingUp />, tooltip: tooltips.yearlyAverage }
-              ].map((metric, index) => (
-                <motion.div
-                  key={metric.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
-                  className="bg-gray-900 rounded-xl p-4 hover:bg-gray-800 transition-colors duration-300 relative group"
-                  onMouseEnter={() => setShowTooltip(metric.title)}
-                  onMouseLeave={() => setShowTooltip(null)}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-2">
-                      <span className={`text-${metric.color}-500`}>{metric.icon}</span>
-                      <h3 className="text-gray-400 text-sm">{metric.title}</h3>
-                    </div>
-                    <FiInfo className="text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                  <p className={`text-${metric.color}-500 text-2xl font-bold group-hover:scale-105 transition-transform`}>
-                    {metric.value}
-                  </p>
-                  {showTooltip === metric.title && (
-                    <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-sm py-2 px-3 rounded shadow-lg z-10 w-48 text-center">
-                      {metric.tooltip}
-                    </div>
-                  )}
-                </motion.div>
-              ))}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+                className="bg-gray-900 rounded-xl p-4 hover:bg-gray-800 transition-colors duration-300 relative"
+                onMouseEnter={() => setShowTooltip('emissions')}
+                onMouseLeave={() => setShowTooltip(null)}
+              >
+                <h3 className="text-gray-400 text-sm mb-2">Total Emissions</h3>
+                <p className="text-2xl font-bold text-red-500">{creditData.emissions} CO2e</p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+                className="bg-gray-900 rounded-xl p-4 hover:bg-gray-800 transition-colors duration-300 relative"
+                onMouseEnter={() => setShowTooltip('sequestration')}
+                onMouseLeave={() => setShowTooltip(null)}
+              >
+                <h3 className="text-gray-400 text-sm mb-2">Carbon Sequestration</h3>
+                <p className="text-2xl font-bold text-green-500">{creditData.sequestration} CO2e</p>
+              </motion.div>
             </div>
           </motion.div>
 
@@ -136,28 +164,28 @@ const CarbonSpeedometerPage = () => {
                   <div className="flex items-center justify-between mb-2">
                     <p className="text-gray-400">Current Level</p>
                     <p className={`text-2xl font-bold ${
-                      carbonCredits >= 800 ? 'text-green-500' : 
-                      carbonCredits >= 600 ? 'text-yellow-500' : 
+                      creditData.score >= 800 ? 'text-green-500' : 
+                      creditData.score >= 600 ? 'text-yellow-500' : 
                       'text-red-500'
                     }`}>
-                      {carbonCredits >= 800 ? 'Excellent' : 
-                       carbonCredits >= 600 ? 'Good' : 
+                      {creditData.score >= 800 ? 'Excellent' : 
+                       creditData.score >= 600 ? 'Good' : 
                        'Needs Improvement'}
                     </p>
                   </div>
                   <div className="w-full bg-gray-700 rounded-full h-2">
                     <div 
                       className="bg-green-500 h-2 rounded-full transition-all duration-500"
-                      style={{ width: `${(carbonCredits / 900) * 100}%` }}
+                      style={{ width: `${(creditData.score / 1000) * 100}%` }}
                     />
                   </div>
                 </div>
                 <div>
                   <p className="text-gray-400 mb-1">Next Milestone</p>
                   <div className="flex items-center justify-between">
-                    <p className="text-xl text-blue-500">{creditData.nextMilestone} Credits</p>
+                    <p className="text-xl text-blue-500">{Math.ceil(creditData.score / 100) * 100} Credits</p>
                     <p className="text-gray-400">
-                      {creditData.nextMilestone - carbonCredits} credits to go
+                      {Math.ceil(creditData.score / 100) * 100 - creditData.score} credits to go
                     </p>
                   </div>
                 </div>
@@ -211,4 +239,3 @@ const CarbonSpeedometerPage = () => {
 };
 
 export default CarbonSpeedometerPage;
-

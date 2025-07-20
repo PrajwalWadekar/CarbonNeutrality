@@ -8,7 +8,7 @@ An intuitive and informative frontend interface designed for monitoring and mana
 
 ## 🌐 Live Preview
 
-**🔗 [Carbon Neutrality]([https://carbon-neutrality.vercel.app/](https://carbon-neutrality-e8ha.vercel.app/))**  
+**🔗 [Carbon Neutrality](https://carbon-neutrality-e8ha.vercel.app/)**
 
 
 ---
@@ -53,9 +53,23 @@ An intuitive and informative frontend interface designed for monitoring and mana
 
 ## 🖼️ Screenshot
 
-> Add this screenshot in your repo as `screenshot.png` or use an existing path:
 
-    ![Carbon Neutrality Dashboard](./screenshot.png)
+
+![Home](./Output/Home.png)
+![Carbon Sink 1](./Output/CarbonSink1.png)
+![Carbon Sink 2](./Output/CarbonSink2.png)
+![Carbon Sink 3](./Output/CarbonSink3.png)
+![Carbon Sink 4](./Output/CarbonSink4.png)
+![Carbon Sink 5](./Output/CarbonSink5.png)
+![Data Input 1](./Output/DataInput1.png)
+![Data Input 2](./Output/DataInput2.png)
+![Data Input 3](./Output/DataInput3.png)
+![Reports](./Output/Reports.png)
+![Suggestion](./Output/Suggestion.png)
+![Visualise 1](./Output/Visualise1.png)
+![Visualise 2](./Output/Visualise2.png)
+![Visualise 3](./Output/Visualise3.png)
+
 
 ---
 
